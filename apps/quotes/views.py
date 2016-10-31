@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 from .models import Quotes, Favorites
 # Create your views here.
 def index(request):
+	if 'id' not in request.session:
+		return redirect(reverse('login:index'))
 	user = User.objects.get(id = request.session['id'])
 	userid = request.session['id']
 	favorites = Favorites.objects.filter(user = user)
@@ -36,6 +38,8 @@ def delete(request, id):
 	return redirect(reverse('quotes:index'))	
 
 def users(request, id):
+	if 'id' not in request.session:
+		return redirect(reverse('login:index'))
 	user = User.objects.get(id = id)
 	favorites = Favorites.objects.filter(user = user)
 	count = 0 
