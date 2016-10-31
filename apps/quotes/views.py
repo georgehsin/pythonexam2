@@ -15,11 +15,14 @@ def index(request):
 	return render(request, 'quotes/index.html', context)
 
 def quote(request):
+	x = False
 	if len(request.POST['quoter'])<3:
 		messages.error(request, "Quoted by must be more than 3 characters")
-		return redirect(reverse('quotes:index'))
+		x = True
 	if len(request.POST['quote'])<10:
 		messages.error(request, "Quote must be greater than 10 characters")
+		x = True
+	if x:
 		return redirect(reverse('quotes:index'))
 	user = User.objects.get(id = request.session['id'])
 	Quotes.objects.create(quoter = request.POST['quoter'], quote = request.POST['quote'], user = user)

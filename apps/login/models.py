@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 import bcrypt
 import re
+import datetime
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 name_regex = re.compile(r'^[A-Za-z]{2}')
@@ -22,6 +23,8 @@ class LoginManager(models.Manager):
 			errors.append('password must be no fewer than 8 characters')
 		if passw != confirm:
 			errors.append('passwords must match')
+		if not date:
+			errors.append('please enter a date')
 		if len(errors) != 0:
 			return (False, errors)
 		else:
