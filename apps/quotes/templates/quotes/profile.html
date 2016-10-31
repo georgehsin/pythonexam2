@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quotes</title>
+</head>
+<body>
+	<a href="{% url 'login:logout' %}">Logout</a>|<a href="{% url 'quotes:dash' %}">Dashboard</a>
+	<p>Posts by {{user.alias}}</p>
+	<p>Count: {{count}} </p>
+	{% for favorite in favorites %}
+		<p><span style="color:red;">{{favorite.quotes.quoter}}:</span> {{favorite.quotes.quote}}</p>
+	{% endfor %}
+</body>
+</html>

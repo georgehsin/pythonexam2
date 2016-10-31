@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Baby Names | Login & Registration</title>
+<meta charset="utf-8">
+{% load staticfiles %}
+</head>
+<body>
+
+<div class="header">
+    <h1>Welcome!</h1>
+</div>
+
+<div class="content">
+    {% for message in messages %}
+        <p style="background-color:red;">{{message}}</p>
+    {% endfor %}
+    <h3>Registration</h3>
+    <form action="register" method="post">
+        {% csrf_token %}
+        Name:<input type="text" name="user">
+        Alias:<input type="text" name="alias">
+        Email:<input type="text" name="email">
+        Password:<input type="password" name="passw">
+        Confirm password:<input type="password" name="confirm">
+        Date of Birth: <input type="date" name="date">
+        <input type="submit" name="Register" value="Register">
+    </form>
+    <h3>Login</h3>
+    <form action="login" method="post">
+        {% csrf_token %}
+        Email:<input type="text" name="email">
+        Password:<input type="password" name="password">
+        <input type="submit" name="login" value="Login">
+    </form>
+</div>
+
+</body>
+</html>
