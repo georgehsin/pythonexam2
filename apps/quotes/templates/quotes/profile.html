@@ -2,13 +2,17 @@
 <html>
 <head>
 	<title>Quotes</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'quotes/stylesheet.css' %}" />
 </head>
 <body>
 	<a href="{% url 'login:logout' %}">Logout</a>|<a href="{% url 'quotes:dash' %}">Dashboard</a>
-	<p>Posts by {{user.alias}}</p>
-	<p>Count: {{count}} </p>
+	<h3>Posts by {{user.alias}} | Count: {{count}} </h3>
+	<hr>
+	<div class="quotes">
 	{% for favorite in favorites %}
-		<p><span style="color:red;">{{favorite.quotes.quoter}}:</span> {{favorite.quotes.quote}}</p>
+		<p><span id="quoter">{{favorite.quotes.quoter}}</span>:{{favorite.quotes.quote}}</p>
 	{% endfor %}
+	</div>
 </body>
 </html>

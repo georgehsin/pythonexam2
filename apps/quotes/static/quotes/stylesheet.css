@@ -1,0 +1,29 @@
+body{
+	width:960px;
+	margin:auto;
+}
+h2{
+	margin-top: 0px;
+}
+h3{
+	font-size: 35px;
+}
+h4{
+	font-size: 25px;
+}
+#quoter{
+	font-weight: bold;
+}
+#addquote{
+	margin: 30px;
+	border: 1px solid black;
+	display: inline-block;
+	padding: 20px;
+	margin-top: 0px;
+}
+textarea{
+	margin-left: 30px;
+}
+.quotes{
+	margin-left:30px;
+}
