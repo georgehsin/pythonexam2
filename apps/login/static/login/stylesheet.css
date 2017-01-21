@@ -21,4 +21,33 @@ input{
 .submit{
 	display: block;
 	margin-top: 10px;
+
+}
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+ALLOWED_HOSTS = ['52.24.207.39']
+
+gunicorn --bind 0.0.0.0:8000 pythonexam2.wsgi:application
+
+description "Gunicorn application server handling our project"
+start on runlevel [2345]
+stop on runlevel [!2345]
+respawn
+setuid ubuntu
+setgid www-data
+chdir /home/ubuntu/pythonexam2
+exec venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/pythonexam2/pythonexam2.sock pythonexam2.wsgi:application
+
+server {
+    listen 80;
+    server_name {{yourEC2.public.ip}}; # This should be just the digits from AWS public ip!
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/{{myRepoName}};
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/{{myRepoName}}/{{projectName}}.sock;
+    }
 }

@@ -44,11 +44,13 @@ def users(request, id):
 	if 'id' not in request.session:
 		return redirect(reverse('login:index'))
 	user = User.objects.get(id = id)
-	favorites = Favorites.objects.filter(user = user)
+	print user.alias
+	quotes = Quotes.objects.filter(user = user)
+	print quotes[0].quote
 	count = 0 
-	for favorite in favorites:
+	for quote in quotes:
 		count +=1
-	context = {'favorites':favorites, 'user':user, 'count':count}
+	context = {'user':user, 'count':count, 'quotes':quotes}
 	return render(request, 'quotes/profile.html', context)
 
 def dash(request):

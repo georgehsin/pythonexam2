@@ -9,10 +9,19 @@
 	<a href="{% url 'login:logout' %}">Logout</a>|<a href="{% url 'quotes:dash' %}">Dashboard</a>
 	<h3>Posts by {{user.alias}} | Count: {{count}} </h3>
 	<hr>
-	<div class="quotes">
+
+<!-- 	<div class="quotes">
 	{% for favorite in favorites %}
 		<p><span id="quoter">{{favorite.quotes.quoter}}</span>:{{favorite.quotes.quote}}</p>
 	{% endfor %}
+	</div> -->
+
+	<div class="quotes">
+	{% for quote in quotes %}
+		<p><span id="quoter">{{quote.quoter}}</span>:{{quote.quote}}</p>
+	{% endfor %}
 	</div>
+
+
 </body>
 </html>
