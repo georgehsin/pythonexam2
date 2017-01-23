@@ -17,8 +17,10 @@ class LoginManager(models.Manager):
 			errors.append('Alias already exists!')
 		if not name_regex.match(user):
 			errors.append('first name must be no fewer than 2 characters and letters only')
-		if not EMAIL_REGEX.match(email):
+		if User.objects.filter(email = email).exists() == True:
 			errors.append('email already in use')
+		if not EMAIL_REGEX.match(email):
+			errors.append('Please enter a valid email')
 		if not password_regex.match(passw):
 			errors.append('password must be no fewer than 8 characters')
 		if passw != confirm:

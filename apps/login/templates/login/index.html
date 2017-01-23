@@ -4,43 +4,104 @@
 
     <title>Quotable| Login & Registration</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'login/stylesheet.css' %}" />
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'login/stylesheet.css' %}" /> -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="{% static 'login/assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'login/assets/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'login/assets/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'login/assets/css/style.css' %}">
     <meta charset="utf-8">
     
 </head>
-<body>
-
-<div class="header">
-    <h1>Welcome!</h1>
-</div>
-
-<div class="content">
-    {% for message in messages %}
-        <p style="background-color:red;">{{message}}</p>
-    {% endfor %}
-    <div id="register">
-        <form  action="register" method="post">
-        <h3>Registration</h3>
-            {% csrf_token %}
-            <label>Name:</label> <input type="text" name="user">
-            <label>Alias:</label> <input type="text" name="alias">
-            <label>Email:</label> <input type="text" name="email">
-            <label>Password:</label> <input type="password" name="passw">
-            <label>Confirm password:</label> <input type="password" name="confirm">
-            <label>Date of Birth:</label> <input type="date" name="date">
-            <input class="submit" type="submit" name="Register" value="Register">
-        </form>
-    </div>
-    <div id="login">
-    <form action="login" method="post">
-    <h3>Login</h3>
-        {% csrf_token %}
-        <label>Email:</label> <input type="text" name="email">
-        <label>Password:</label> <input type="password" name="password">
-        <input class="submit" type="submit" name="login" value="Login">
-    </form>
-    </div>
-</div>
-
-</body>
+    <body>
+        <div class="top-content">  
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <div class="description">
+                            </div>
+                        </div>
+                    </div>
+                    <h1 style="margin-bottom: 70px; font-size: 70px;">Welcome to Quotable Quotes</h1>
+                    <div class="row">
+                        {% for message in messages %}
+                            <p id ="errorMessage">{{message}}</p>
+                        {% endfor %}
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Login</h3>
+                                </div>
+                                <div class="form-top-right">
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <form action="login" method="post" class="login-form">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Email</label>
+                                        <input type="text" name="email" placeholder="Email..." class="form-username form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Password</label>
+                                        <input type="password" name="password" placeholder="Password..." class="form-username form-control">
+                                    </div>
+                                    <button type="submit" class="btn">Sign in!</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Register</h3>
+                                </div>
+                                <div class="form-top-right">
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <form  action="register" method="post" class="login-form">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Name</label>
+                                        <input type="text" name="user" placeholder="Name..." class="form-username form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Alias</label>
+                                        <input type="text" name="alias" placeholder="Alias..." class="form-username form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Email</label>
+                                        <input type="text" name="email" placeholder="Email..." class="form-username form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Password</label>
+                                        <input type="password" name="passw" placeholder="Password..." class="form-username form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Confirm Password</label>
+                                        <input type="password" name="confirm" placeholder="Confirm Password..." class="form-username form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Date of Birth</label>
+                                        <input type="date" name="date" placeholder="Date Of Birth..." class="form-username form-control">
+                                    </div>
+                                    <button type="submit" class="btn">Register!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script> 
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+    </body>
 </html>

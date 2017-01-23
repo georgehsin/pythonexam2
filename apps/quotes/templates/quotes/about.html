@@ -9,11 +9,11 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Profile</title>
+    <title>About</title>
 
     <!-- Bootstrap core CSS -->
     {% load static %}
-	<!-- <link rel="stylesheet" type="text/css" href="{% static 'quotes/assets/bootstrap.min.css' %}" /> -->
+	<link rel="stylesheet" type="text/css" href="{% static 'quotes/assets/bootstrap.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'quotes/assets/offcanvas.css' %}" />
 	<script src="{% static 'quotes/assets/offcanvas.js' %}"></script>
 
@@ -36,7 +36,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'quotes:dash' %}">Home</a></li>
-            <li><a href="{% url 'quotes:about' %}">About</a></li>
+            <li class="active"><a href="{% url 'quotes:about' %}">About</a></li>
             <li><a href="{% url 'quotes:users' user.id %}">Profile</a></li>
             <li><a href="{% url 'login:logout' %}">Logout</a></li>
           </ul>
@@ -49,23 +49,18 @@
       <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
-        	<p class="pull-right visible-xs">
-        	<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-        	<div class="jumbotron">
-        		<h1>Posts by {{user.alias}}</h1>
-            	<p>Find, Share, and Favorite Quotes!</p>
-          	</div>
-          	<hr>
-			<div class="row">
-			{% for quote in quotes %}
-              <div class="col-xs-6 col-lg-4" style="min-height:200px; display:inline-block; vertical-align:top;">
-                <h2>{{quote.quoter}}</h2>
-                <p>"{{quote.quote}}"</p>
-              </div>
-             {% endfor %}
-			</div><!--/row-->
-      <hr>
-
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          <div class="jumbotron">
+            <h1>Hello, {{user.alias}}</h1>
+            <p>Find, Share, and Favorite Quotes!</p>
+          </div>
+          <hr>
+          <h1>About</h1>
+          <hr>
+          <p>This site is made for posting and sharing quotes. Find all kinds of quotes for however you are feeling. Can't find a quote? Add it to the list of quotes! Also make sure to add your favorite quotes so you can look back at them easily for future reference!</p>
+          <p>Questions or concerns? </p>
+          <p>Feel free to email me at georgehsin@ucla.edu</p>
       <footer>
         <p></p>
       </footer>
@@ -78,34 +73,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
-    <!-- <script src="offcanvas.js"></script> -->
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="offcanvas.js"></script>
   </body>
 </html>
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>Quotes</title>
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'quotes/stylesheet.css' %}" />
-</head>
-<body>
-	<a href="{% url 'login:logout' %}">Logout</a>|<a href="{% url 'quotes:dash' %}">Dashboard</a>
-	<h3>Posts by {{user.alias}} | Count: {{count}} </h3>
-	<hr>
-
-	<div class="quotes">
-	{% for quote in quotes %}
-		<p><span id="quoter">{{quote.quoter}}</span>:{{quote.quote}}</p>
-	{% endfor %}
-	</div>
-
-
-</body>
-</html> -->
-
-
-
 

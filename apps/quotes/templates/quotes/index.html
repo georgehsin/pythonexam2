@@ -1,10 +1,141 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Quotes</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'quotes/assets/bootstrap.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'quotes/assets/offcanvas.css' %}" />
+	<script src="{% static 'quotes/assets/offcanvas.js' %}"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Quotable Quotes</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="{% url 'quotes:about' %}">About</a></li>
+            <li><a href="{% url 'quotes:users' user.id %}">Profile</a></li>
+            <li><a href="{% url 'login:logout' %}">Logout</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          <div class="jumbotron">
+            <h1>Hello, {{user.alias}}</h1>
+            <p>Find, Share, and Favorite Quotes!</p>
+          </div>
+          <hr>
+          <h1>Quotes</h1>
+          <hr>
+          <div class="row">
+            {% for quote in quotes %}
+              <div class="col-xs-6 col-lg-4" style="min-height:200px; display:inline-block; vertical-align:top;">
+                <h2>{{quote.quoter}}</h2>
+                <p>"{{quote.quote}}"</p>
+                <p>Posted by: <a href="{% url 'quotes:users' quote.user.id %}">{{quote.user.alias}}</a></p>
+                <p><a class="btn btn-default" href="{% url 'quotes:favorite' quote.id %}">Add to My List</a></p>
+              </div>
+            {% endfor %}
+          </div><!--/row-->
+          <hr>
+          <h1>Favorites</h1>
+          <hr>
+          <div class="row">
+            {% for favorite in favorites %}
+            <div class="col-xs-6 col-lg-4" style="min-height:200px; display:inline-block; vertical-align:top;">
+              <h2>{{favorite.quotes.quoter}}</h2>
+              <p>"{{favorite.quotes.quote}}"</p>
+                <p>Posted by: <a href="{% url 'quotes:users' favorite.user.id %}">{{favorite.quotes.user.alias}}</a></p>
+                <p><a class="btn btn-default" href="{% url 'quotes:delete' favorite.quotes.id %}">Remove from my list</a><p>
+            </div>
+            {% endfor %}
+          </div><!--/row-->
+        </div><!--/.col-xs-12.col-sm-9-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+          <div class="list-group">
+            <!-- <a href="#" class="list-group-item active">Link</a> -->
+            <h3>Users:</h3>
+            {% for user in users %}
+            <a href="{% url 'quotes:users' user.id %}" class="list-group-item">{{user.alias}}</a>
+            {% endfor %}
+          </div>
+          <div>
+          	<h3>Contribute a Quote:</h3>
+			<div id="addquote">
+				<form action="{% url 'quotes:add' %}" method="post">
+				{% csrf_token %}
+				<p>Quoted By: <input type="text" name="quoter"></p>
+				<p>Quote:<textarea cols="18" rows="5" name="quote" style="margin-left:30px;"> </textarea></p>
+			 	{% for message in messages %}
+	        		<p style="background-color:red;">{{message}}</p>
+	   		 	{% endfor %}
+				<input type="submit" name="Submit" style="margin-left:180px;">
+				</form>
+			</div>
+          </div>
+
+        </div><!--/.sidebar-offcanvas-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p></p>
+      </footer>
+
+    </div><!--/.container-->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="offcanvas.js"></script>
+  </body>
+</html>
+
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Quotes</title>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'quotes/stylesheet.css' %}" />
-	<!-- <link rel="stylesheet" href="/static/quotes/css/stylesheet.css"> -->
+
 </head>
 <body>
 	<a href="{% url 'login:logout' %}">Logout</a>
@@ -46,3 +177,4 @@
 	</div>
 </body>
 </html>
+ -->

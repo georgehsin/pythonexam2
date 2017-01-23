@@ -7,12 +7,18 @@ from .models import Quotes, Favorites
 def index(request):
 	if 'id' not in request.session:
 		return redirect(reverse('login:index'))
+	users = User.objects.all().order_by('alias')
 	user = User.objects.get(id = request.session['id'])
 	userid = request.session['id']
 	favorites = Favorites.objects.filter(user = user)
 	quotes = Quotes.objects.exclude(favorites__user = user)
-	context = {'user':user, 'quotes':quotes, 'favorites':favorites, "userid":userid}
+	context = {'user':user, 'quotes':quotes, 'favorites':favorites, "userid":userid, 'users':users}
 	return render(request, 'quotes/index.html', context)
+
+def about(request):
+	user = User.objects.get(id = request.session['id'])	
+	context = {'user':user}
+	return render(request, 'quotes/about.html', context)	
 
 def quote(request):
 	x = False
@@ -44,13 +50,13 @@ def users(request, id):
 	if 'id' not in request.session:
 		return redirect(reverse('login:index'))
 	user = User.objects.get(id = id)
+	users = User.objects.all().order_by('alias')
 	print user.alias
 	quotes = Quotes.objects.filter(user = user)
-	print quotes[0].quote
 	count = 0 
 	for quote in quotes:
 		count +=1
-	context = {'user':user, 'count':count, 'quotes':quotes}
+	context = {'user':user, 'users':users, 'count':count, 'quotes':quotes}
 	return render(request, 'quotes/profile.html', context)
 
 def dash(request):
